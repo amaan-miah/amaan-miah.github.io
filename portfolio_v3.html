@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amaan Miah · AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f7f4;
+  --bg2: #f0ede8;
+  --black: #111010;
+  --mid: #444;
+  --muted: #888;
+  --border: #d4d0c8;
+  --accent: #c8281e;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 14px; }
+
+body {
+  background: var(--bg);
+  color: var(--black);
+  font-family: var(--mono);
+  line-height: 1.6;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+/* ── NAV ── */
+nav {
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+}
+.nav-inner {
+  display: flex;
+  align-items: stretch;
+  height: 44px;
+}
+.nav-id {
+  display: flex; align-items: center;
+  padding: 0 1.5rem;
+  border-right: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-id span { color: var(--accent); margin-right: 0.5rem; }
+.nav-links {
+  display: flex;
+  align-items: stretch;
+  margin-left: auto;
+}
+.nav-links a {
+  display: flex; align-items: center;
+  padding: 0 1.25rem;
+  border-left: 1px solid var(--border);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover { color: var(--black); background: var(--bg2); }
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--border);
+}
+.header-meta {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.header-meta-item {
+  padding: 0.6rem 1.5rem;
+  border-right: 1px solid var(--border);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.header-meta-item strong { color: var(--black); }
+.header-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding: 3rem 1.5rem 2.5rem;
+  gap: 2rem;
+}
+.header-name {
+  font-family: var(--mono);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--black);
+}
+.header-name .accent { color: var(--accent); }
+.header-desc {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--mid);
+  max-width: 400px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.header-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-end;
+}
+.header-links a {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: color 0.15s;
+}
+.header-links a::before { content: '↗'; color: var(--accent); font-size: 0.65rem; }
+.header-links a:hover { color: var(--black); }
+
+/* ── SECTION WRAPPER ── */
+.section-wrap {
+  border-bottom: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  height: 36px;
+  padding: 0 1.5rem;
+  gap: 1rem;
+}
+.section-index {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.section-title-sm {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-body { padding: 2rem 1.5rem; }
+
+/* ── PROJECTS ── */
+.project {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border: 1px solid var(--border);
+  margin-bottom: 1px;
+  background: var(--bg);
+  transition: background 0.15s;
+}
+.project:hover { background: var(--bg2); }
+.project-sidebar {
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.project-num {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.project-name-sm {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--black);
+}
+.project-event {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  font-family: var(--sans);
+  font-weight: 300;
+}
+.project-repo a {
+  font-size: 0.65rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.project-repo a:hover { text-decoration: underline; }
+.project-main { padding: 1.5rem; }
+.project-desc-text {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--mid);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+}
+.project-decision {
+  margin-bottom: 1.25rem;
+}
+.project-decision-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.decision-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+}
+.decision-key {
+  font-size: 0.72rem;
+  color: var(--accent);
+  white-space: nowrap;
+  min-width: 180px;
+}
+.decision-val {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--mid);
+  font-weight: 300;
+}
+.stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+.stack-tag {
+  font-size: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  background: var(--bg);
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 3rem;
+}
+.about-body {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--mid);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.about-body p { margin-bottom: 0.9rem; }
+.about-body strong { color: var(--black); font-weight: 500; }
+.about-metrics { display: flex; flex-direction: column; gap: 0; }
+.metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-bottom: none;
+}
+.metric-row:last-child { border-bottom: 1px solid var(--border); }
+.metric-cell {
+  padding: 1rem;
+  border-right: 1px solid var(--border);
+}
+.metric-cell:last-child { border-right: none; }
+.metric-val {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  line-height: 1;
+}
+.metric-val .accent { color: var(--accent); }
+.metric-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+  font-family: var(--sans);
+}
+
+/* ── SKILLS ── */
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+}
+.skills-table th {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  background: var(--bg2);
+  font-weight: 500;
+}
+.skills-table th:last-child { border-right: none; }
+.skills-table td {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--mid);
+  padding: 0.8rem 1rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.skills-table td:last-child { border-right: none; }
+.skills-table tr:last-child td { border-bottom: none; }
+.skills-table tr:hover td { background: var(--bg2); }
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+.contact-info {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--mid);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.contact-info p { margin-bottom: 1rem; }
+.contact-direct {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+}
+.contact-row-label {
+  color: var(--muted);
+  min-width: 60px;
+  letter-spacing: 0.06em;
+}
+.contact-row a {
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+.contact-row a:hover { text-decoration: underline; }
+form { display: flex; flex-direction: column; gap: 0; }
+.field {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-bottom: none;
+}
+.field:last-of-type { border-bottom: 1px solid var(--border); }
+.field label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem 0;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.field input,
+.field textarea {
+  background: var(--bg);
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--black);
+  padding: 0.6rem 0.75rem;
+  resize: vertical;
+  transition: background 0.15s;
+}
+.field input:focus,
+.field textarea:focus { background: #fff; }
+.field textarea { min-height: 100px; }
+.form-submit {
+  margin-top: 0.75rem;
+  background: var(--black);
+  color: var(--bg);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s;
+}
+.form-submit:hover { background: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.footer-copy {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.footer-links {
+  display: flex; gap: 0;
+}
+.footer-links a {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 1rem;
+  border-left: 1px solid var(--border);
+  line-height: 40px;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--black); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+  .header-main { grid-template-columns: 1fr; }
+  .header-links { align-items: flex-start; }
+  .project { grid-template-columns: 1fr; }
+  .project-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .decision-key { min-width: 130px; }
+  .nav-links a { padding: 0 0.75rem; font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner container">
+    <a class="nav-id" href="#"><span>$</span>amaan-miah</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#skills">Stack</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="container">
+    <div class="header-meta">
+      <div class="header-meta-item">STATUS: <strong>Available from 22 May 2026</strong></div>
+      <div class="header-meta-item">LOCATION: <strong>London, UK</strong></div>
+      <div class="header-meta-item">ROLE: <strong>AI Engineer</strong></div>
+      <div class="header-meta-item">PREFERENCE: <strong>Onsite / Hybrid</strong></div>
+    </div>
+    <div class="header-main">
+      <div>
+        <h1 class="header-name">Amaan<br>Miah<span class="accent">.</span></h1>
+        <p class="header-desc" style="margin-top:1.25rem">I build AI systems that work — RAG pipelines, voice agents, agentic workflows. Three systems shipped in three weeks. Every architectural decision documented and defensible.</p>
+      </div>
+      <div class="header-links">
+        <a href="https://github.com/amaan-miah" target="_blank">github.com/amaan-miah</a>
+        <a href="https://linkedin.com/in/amaan-miah-professional" target="_blank">LinkedIn</a>
+        <a href="mailto:muambusiness@gmail.com">muambusiness@gmail.com</a>
+        <a href="https://github.com/amaan-miah/rai" target="_blank">RAI — main project</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="section-wrap" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-index">01</span>
+      <span class="section-title-sm">Projects</span>
+    </div>
+    <div class="section-body" style="padding:0">
+
+      <!-- RAI -->
+      <div class="project">
+        <div class="project-sidebar">
+          <div class="project-num">PROJECT_01</div>
+          <div class="project-name-sm">RAI</div>
+          <div class="project-event">Independent project<br>AWS Summit London 2026<br>April 2026</div>
+          <div class="project-repo"><a href="https://github.com/amaan-miah/rai" target="_blank">↗ github.com/amaan-miah/rai</a></div>
+        </div>
+        <div class="project-main">
+          <p class="project-desc-text">A serverless RAG pipeline that answers questions from internal documentation in under 5 seconds. Built on AWS without LangChain — every layer written in plain Python so every decision is visible and debuggable. Demoed at AWS Summit London 2026 to a CTO who connected on LinkedIn and a startup founder who arranged a follow-up call.</p>
+          <div class="project-decision">
+            <div class="project-decision-label">Architectural decisions</div>
+            <div class="decision-row">
+              <span class="decision-key">S3 over Pinecone</span>
+              <span class="decision-val">Negligible latency difference under 1,000 chunks. Removes external dependency entirely. Switch to OpenSearch at 10,000+ chunks.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">Lambda over EC2</span>
+              <span class="decision-val">Usage is unpredictable. Lambda scales to zero between requests. No idle compute cost.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">RAG over fine-tuning</span>
+              <span class="decision-val">Documents change constantly. RAG keeps knowledge live without retraining the model.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">Plain Python over LangChain</span>
+              <span class="decision-val">Full visibility into embedding, retrieval, and generation. No abstraction hiding failure modes.</span>
+            </div>
+          </div>
+          <div class="stack-row">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">AWS Lambda</span>
+            <span class="stack-tag">API Gateway</span>
+            <span class="stack-tag">Amazon Bedrock</span>
+            <span class="stack-tag">S3</span>
+            <span class="stack-tag">Claude</span>
+            <span class="stack-tag">Cosine similarity</span>
+            <span class="stack-tag">HTML/JS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ndeko -->
+      <div class="project">
+        <div class="project-sidebar">
+          <div class="project-num">PROJECT_02</div>
+          <div class="project-name-sm">Ndeko</div>
+          <div class="project-event">FME Copilot<br>MongoDB Agentic Evolution Hackathon<br>May 2026</div>
+          <div class="project-repo" style="color:var(--muted);font-size:0.65rem;letter-spacing:0.04em">Private repo — operational data</div>
+        </div>
+        <div class="project-main">
+          <p class="project-desc-text">A voice-first multimodal AI agent for telecom field engineers in the DRC. Engineers call it during a site failure — it pulls site history from MongoDB, asks for a photo of the energy meter, reads it via LLM vision, searches SOP manuals using vector search, and gives a hands-free diagnosis. Built using real operational data from a live telecom business. Demoed to judges including a Member of Technical Staff at xAI. Matheus Guimarães (Sr. Developer Advocate, AWS) said the project could probably be sold and that the team looked like a Silicon Valley team.</p>
+          <div class="project-decision">
+            <div class="project-decision-label">Architectural decisions</div>
+            <div class="decision-row">
+              <span class="decision-key">LangGraph over LangChain</span>
+              <span class="decision-val">Field diagnostics are stateful. Agent pauses while engineer walks to equipment, then processes async photo. State machine, not a prompt chain.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">MongoDB Atlas for everything</span>
+              <span class="decision-val">Replaced Pinecone + Redis + PostgreSQL with one service. Vector search, document storage, and LangGraph session checkpointing from one connection string.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">WebRTC over HTTP/WebSocket</span>
+              <span class="decision-val">Sub-500ms voice latency required for natural conversation. Traditional HTTP introduces too much delay for real-time field diagnosis.</span>
+            </div>
+          </div>
+          <div class="stack-row">
+            <span class="stack-tag">LangGraph</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">LiveKit WebRTC</span>
+            <span class="stack-tag">ElevenLabs TTS</span>
+            <span class="stack-tag">MongoDB Atlas</span>
+            <span class="stack-tag">Gemini embeddings</span>
+            <span class="stack-tag">Claude vision</span>
+            <span class="stack-tag">React/Vite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GraphMind -->
+      <div class="project">
+        <div class="project-sidebar">
+          <div class="project-num">PROJECT_03</div>
+          <div class="project-name-sm">GraphMind</div>
+          <div class="project-event">Graph RAG Agent<br>Hack Night London — Tessl<br>May 2026 · Demoed to judges via video submission</div>
+          <div class="project-repo"><a href="https://github.com/amaan-miah" target="_blank">↗ github.com/amaan-miah</a></div>
+        </div>
+        <div class="project-main">
+          <p class="project-desc-text">A knowledge graph RAG agent built at Tessl's hack night in London. Instead of searching flat document chunks, data lives as a connected graph in Neo4j. The agent traverses relationships — finding not just relevant nodes but everything connected to them. Richer context than traditional vector search without increased latency.</p>
+          <div class="project-decision">
+            <div class="project-decision-label">Architectural decisions</div>
+            <div class="decision-row">
+              <span class="decision-key">Neo4j over vector DB</span>
+              <span class="decision-val">Graph relationships carry meaning that flat embeddings lose. "Who directed The Matrix" retrieves the director, their other films, and their collaborators — not just the movie.</span>
+            </div>
+            <div class="decision-row">
+              <span class="decision-key">Kimchi for LLM inference</span>
+              <span class="decision-val">OpenAI-compatible endpoint pointing at open-source models. Same interface as Claude/GPT-4, zero API cost, no usage limits during rapid prototyping.</span>
+            </div>
+          </div>
+          <div class="stack-row">
+            <span class="stack-tag">Neo4j</span>
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Kimchi</span>
+            <span class="stack-tag">Tessl skills</span>
+            <span class="stack-tag">Cypher</span>
+            <span class="stack-tag">OpenAI API</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section-wrap" id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-index">02</span>
+      <span class="section-title-sm">About</span>
+    </div>
+    <div class="section-body">
+      <div class="about-grid">
+        <div class="about-body">
+          <p>I'm finishing an intensive AWS cloud engineering programme at Westminster Adult Education Service in London. Alongside the course I've independently built and shipped three AI systems — a RAG pipeline, a voice agent, and a graph RAG agent — in under three weeks.</p>
+          <p>I don't follow tutorials. I identify a problem, design the architecture, build it end-to-end, and document every decision. I can explain why I chose S3 over Pinecone, why I used LangGraph instead of a basic chain, and exactly when each decision would need revisiting as scale changes.</p>
+          <p>I demoed <strong>RAI</strong> at AWS Summit London to engineers, managers, and founders. A CTO connected on LinkedIn. A startup founder arranged a follow-up call. I built <strong>Ndeko</strong> at the MongoDB Agentic Evolution Hackathon — demoed to judges including a Member of Technical Staff at xAI. I shipped <strong>GraphMind</strong> at Tessl's hack night three days later.</p>
+          <p>I use AI tools — Claude Code, ChatGPT, Gemini — as daily development tools, not as a crutch. I understand what I build. Available immediately from <strong>22nd May 2026</strong>.</p>
+        </div>
+        <div>
+          <div class="about-metrics">
+            <div class="metric-row">
+              <div class="metric-cell">
+                <div class="metric-val">3</div>
+                <div class="metric-label">AI systems shipped</div>
+              </div>
+              <div class="metric-cell">
+                <div class="metric-val">3<span class="accent">wk</span></div>
+                <div class="metric-label">Time to build all three</div>
+              </div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-cell">
+                <div class="metric-val">5</div>
+                <div class="metric-label">AWS certificates</div>
+              </div>
+              <div class="metric-cell">
+                <div class="metric-val">&lt;5<span class="accent">s</span></div>
+                <div class="metric-label">RAI query latency</div>
+              </div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-cell">
+                <div class="metric-val">2</div>
+                <div class="metric-label">Hackathons competed</div>
+              </div>
+              <div class="metric-cell">
+                <div class="metric-val">∞</div>
+                <div class="metric-label">Decisions I can defend</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-wrap" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-index">03</span>
+      <span class="section-title-sm">Stack</span>
+    </div>
+    <div class="section-body">
+      <table class="skills-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Tools & Technologies</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI & Agents</td>
+            <td>Python · LangGraph · LangChain · RAG pipelines · embeddings · vector search · prompt engineering · MCP · Claude Code</td>
+            <td>Used in production projects. LangGraph used in Ndeko. RAG built from scratch in RAI.</td>
+          </tr>
+          <tr>
+            <td>LLMs</td>
+            <td>Claude (Anthropic) · GPT-4 · Gemini · LLaMA 3.1 70B · Amazon Bedrock Titan</td>
+            <td>Claude and Bedrock used in deployed systems. Gemini for multimodal embeddings.</td>
+          </tr>
+          <tr>
+            <td>Cloud & Infra</td>
+            <td>AWS Lambda · API Gateway · S3 · EC2 · IAM · Bedrock · SageMaker · CloudWatch · Terraform · Docker · Kubernetes</td>
+            <td>Lambda, API Gateway, S3, Bedrock used in RAI. Full AWS re/Start programme.</td>
+          </tr>
+          <tr>
+            <td>Data & Databases</td>
+            <td>MongoDB Atlas · PostgreSQL · Neo4j · SQL · vector search · graph databases</td>
+            <td>MongoDB Atlas Vector Search used in Ndeko. Neo4j used in GraphMind. PostgreSQL via AWS re/Start.</td>
+          </tr>
+          <tr>
+            <td>Voice & Realtime</td>
+            <td>LiveKit WebRTC · ElevenLabs TTS · multimodal vision · stateful agents</td>
+            <td>Full voice pipeline built in Ndeko. Sub-500ms latency via WebRTC.</td>
+          </tr>
+          <tr>
+            <td>Backend</td>
+            <td>FastAPI · REST API design · serverless deployment · Git · GitHub</td>
+            <td>FastAPI used in Ndeko backend. Serverless architecture used throughout.</td>
+          </tr>
+          <tr>
+            <td>Frontend</td>
+            <td>JavaScript · HTML · CSS · React (familiar) · TypeScript (learning)</td>
+            <td>HTML/JS frontend built for RAI. React/Vite frontend built for Ndeko.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section-wrap" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-index">04</span>
+      <span class="section-title-sm">Contact</span>
+    </div>
+    <div class="section-body">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>I'm finishing AWS re/Start on 22nd May 2026 and immediately available. I'm looking for a junior AI engineering role in London — onsite or hybrid, ideally at a company building real AI products rather than wrapping APIs.</p>
+          <p>If you're hiring or know someone who is, get in touch directly or use the form.</p>
+          <div class="contact-direct">
+            <div class="contact-row">
+              <span class="contact-row-label">EMAIL</span>
+              <a href="mailto:muambusiness@gmail.com">muambusiness@gmail.com</a>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">GITHUB</span>
+              <a href="https://github.com/amaan-miah" target="_blank">github.com/amaan-miah</a>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">LINKEDIN</span>
+              <a href="https://linkedin.com/in/amaan-miah-professional" target="_blank">amaan-miah-professional</a>
+            </div>
+            <div class="contact-row">
+              <span class="contact-row-label">PHONE</span>
+              <a href="tel:+447930249609">+44 7930 249609</a>
+            </div>
+          </div>
+        </div>
+        <form action="https://formspree.io/f/mlgvrgwv" method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field" style="border-bottom:1px solid var(--border)">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container">
+  <span class="footer-copy">Amaan Miah · AI Engineer · London 2026</span>
+  <div class="footer-links">
+    <a href="https://github.com/amaan-miah" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/amaan-miah-professional" target="_blank">LinkedIn</a>
+    <a href="mailto:muambusiness@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+const form = document.querySelector('form');
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = 'Sent ✓';
+        form.reset();
+      } else {
+        btn.textContent = 'Failed — email directly';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Failed — email directly';
+      btn.disabled = false;
+    }
+  });
+}
+</script>
+</body>
+</html>
